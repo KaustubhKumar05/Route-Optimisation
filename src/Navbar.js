@@ -7,15 +7,15 @@ const Navbar = () => {
 	return (
 		<div className="navbar">
 			<div className="project-name navbar-left">
-				<MyLocationIcon />
-				Path optimisation
+				<MyLocationIcon fontSize="large" />
+				<p>Route optimisation</p>
 			</div>
 			<div className="navbar-right">
 				<div className="project-repo icon">
-					<GitHubIcon />
+					<GitHubIcon fontSize="large" />
 				</div>
 				<div className="modal icon">
-					<HelpIcon />
+					<HelpIcon fontSize="large" />
 				</div>
 			</div>
 		</div>

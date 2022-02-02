@@ -5,6 +5,8 @@ import * as tt from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services";
 import RouteDuration from "./RouteDuration";
 import Navbar from "./Navbar";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const KEY = "dExniraENWHwB9aLHajmRBj9i21eFbO8";
 
@@ -48,7 +50,7 @@ const App = () => {
 		const latBar = document.getElementById("latitudeInput");
 		const lngBar = document.getElementById("longitudeInput");
 		setLatitude(latBar.value);
-		setRouteDuration(0)
+		setRouteDuration(0);
 		setLongitude(lngBar.value);
 	};
 
@@ -67,6 +69,8 @@ const App = () => {
 			lng: longitude,
 			lat: latitude,
 		};
+
+		// console.log(routeDuration)
 
 		let map = tt.map({
 			key: KEY,
@@ -126,6 +130,7 @@ const App = () => {
 				destinations: formattedDestinations,
 				origins: [formatAsPoint(origin)],
 			};
+
 			return new Promise((resolve, reject) => {
 				tts.services.matrixRouting(callParams).then((callResult) => {
 					const results = callResult.matrix[0];
@@ -138,6 +143,7 @@ const App = () => {
 					resultsArray.sort((a, b) => a.drivingTime - b.drivingTime);
 					const sortedLocations = resultsArray.map((result) => {
 						totalTime.current += result.drivingTime;
+						setRouteDuration(totalTime.current);
 						return result.location;
 					});
 					resolve(sortedLocations);
@@ -155,7 +161,7 @@ const App = () => {
 					})
 					.then((routeData) => {
 						const formattedRouteData = routeData.toGeoJson();
-						setRouteDuration(totalTime.current);
+						console.log(routeDuration);
 						drawRoute(map, formattedRouteData);
 					});
 			});
@@ -166,21 +172,46 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Navbar/>
+			<Navbar />
 			<div ref={mapElement} className="map" id="main-display" />
-			<div className="user-input">
-				<h1>Set current location</h1>
-				<div className="input-bars">
-					<input type="text" id="latitudeInput" placeholder="Enter latitude" />
-					<input
-						type="text"
-						id="longitudeInput"
-						placeholder="Enter longitude"
-					/>
+			<div className="dashboard">
+				<div className="user-input">
+					<div className="input-bars">
+						<p>Set pointer location</p>
+						<TextField
+							id="longitudeInput"
+							size="small"
+							margin="normal"
+							inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+							label="Enter longitude"
+							variant="outlined"
+						/>
+						<TextField
+							id="latitudeInput"
+							size="small"
+							margin="normal"
+							inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+							label="Enter latitude"
+							variant="outlined"
+						/>
+					</div>
+
+					<div className="buttons">
+						<Button variant="contained" onClick={updateLocation}>
+							Update location
+						</Button>
+
+						<Button
+							variant="contained"
+							onClick={() => window.location.reload()}
+						>
+							Reset map
+						</Button>
+					</div>
 				</div>
-				<button onClick={updateLocation}>Update current location</button>
-				<button onClick={() => window.location.reload()}>Reset map</button>
-				{routeDuration > 0 && <RouteDuration routeDuration={routeDuration}/>}
+				<div className="route-duration">
+					<RouteDuration routeDuration={routeDuration} />
+				</div>
 			</div>
 		</div>
 	);
