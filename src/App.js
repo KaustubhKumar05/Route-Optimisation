@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import * as tt from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services";
 import RouteDuration from "./RouteDuration";
+import Navbar from "./Navbar";
 
 const KEY = "dExniraENWHwB9aLHajmRBj9i21eFbO8";
 
@@ -47,6 +48,7 @@ const App = () => {
 		const latBar = document.getElementById("latitudeInput");
 		const lngBar = document.getElementById("longitudeInput");
 		setLatitude(latBar.value);
+		setRouteDuration(0)
 		setLongitude(lngBar.value);
 	};
 
@@ -164,6 +166,7 @@ const App = () => {
 
 	return (
 		<div className="App">
+			<Navbar/>
 			<div ref={mapElement} className="map" id="main-display" />
 			<div className="user-input">
 				<h1>Set current location</h1>
