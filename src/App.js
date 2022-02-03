@@ -7,7 +7,7 @@ import RouteDuration from "./RouteDuration";
 import Navbar from "./Navbar";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { whit/e } from "@mui/material/colors";
+import Modal from "./Modal";
 import Button from "@mui/material/Button";
 
 const KEY = "dExniraENWHwB9aLHajmRBj9i21eFbO8";
@@ -26,6 +26,7 @@ const theme = createTheme({
 const App = () => {
 	const [map, setMap] = useState({});
 	const mapElement = useRef();
+	const [modalView, setModalView] = useState(true);
 	const [latitude, setLatitude] = useState(22.3072);
 	const [longitude, setLongitude] = useState(73.1812);
 	const totalTime = useRef(0);
@@ -33,6 +34,10 @@ const App = () => {
 		!window.matchMedia("(orientation:landscape)").matches
 	);
 	const [routeDuration, setRouteDuration] = useState(0);
+
+	const handleSetModalView = () => {
+		setModalView(!modalView);
+	};
 
 	const orientation = window.matchMedia("(orientation:landscape)");
 	orientation.addEventListener("change", () => {
@@ -192,7 +197,8 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Navbar />
+			{modalView === true && <Modal handleSetModalView={handleSetModalView} />}
+			<Navbar handleSetModalView={handleSetModalView} />
 			<div ref={mapElement} className="map" id="main-display" />
 			<div className="dashboard">
 				<div className="user-input">
@@ -224,12 +230,12 @@ const App = () => {
 						<div className="buttons">
 							<ThemeProvider theme={theme}>
 								{portrait === true ? (
-									<Button size="large" variant="text" onClick={updateLocation}>
+									<Button size="medium" variant="text" onClick={updateLocation}>
 										Update
 									</Button>
 								) : (
 									<Button
-										size="large"
+										size="medium"
 										variant="contained"
 										onClick={updateLocation}
 									>
@@ -239,7 +245,7 @@ const App = () => {
 								{portrait === true ? (
 									<Button
 										variant="text"
-										size="large"
+										size="medium"
 										onClick={() => window.location.reload()}
 									>
 										Reset
@@ -247,7 +253,7 @@ const App = () => {
 								) : (
 									<Button
 										variant="contained"
-										size="large"
+										size="medium"
 										onClick={() => window.location.reload()}
 									>
 										Reset

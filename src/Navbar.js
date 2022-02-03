@@ -2,8 +2,11 @@ import "./App.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HelpIcon from "@mui/icons-material/Help";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import BrushIcon from "@mui/icons-material/Brush";
+import Tooltip from "@mui/material/Tooltip";
 
-const Navbar = () => {
+const Navbar = ({ handleSetModalView }) => {
 	return (
 		<div className="navbar">
 			<div className="project-name navbar-left">
@@ -11,11 +14,30 @@ const Navbar = () => {
 				<p>Route optimisation</p>
 			</div>
 			<div className="navbar-right">
-				<div className="project-repo icon">
-					<GitHubIcon fontSize="large" />
+				<div className="tomtom icon">
+					<Tooltip title="TomTom API" placement="bottom">
+						<a href="https://developer.tomtom.com/" target="_blank">
+							<SyncAltIcon />
+						</a>
+					</Tooltip>
 				</div>
-				<div className="modal icon">
-					<HelpIcon fontSize="large" />
+				<div className="material icon">
+					<Tooltip title="Material UI" placement="bottom">
+						<a href="https://mui.com//" target="_blank">
+							<BrushIcon />
+						</a>
+					</Tooltip>
+				</div>
+
+				<div className="project-repo icon">
+					<Tooltip title="Project repo" placement="bottom">
+						<GitHubIcon fontSize="large" />
+					</Tooltip>
+				</div>
+				<div className="icon">
+					<Tooltip title="Help" placement="bottom">
+						<HelpIcon fontSize="large" onClick={handleSetModalView} />
+					</Tooltip>
 				</div>
 			</div>
 		</div>
