@@ -17,14 +17,13 @@ const RouteDuration = ({ routeDuration }) => {
 	return (
 		<div className="right-panel">
 			{routeDuration > 0 ? (
-				<p>
-					Estimated time for route completion {formatDuration(routeDuration)}
-				</p>
+				<div className="right-panel-text">
+					Estimated time for route completion is {formatDuration(routeDuration)}
+				</div>
 			) : (
-				<p>
-					Scroll over the map to adjust the zoom. Add destination points to
+				<div className="right-panel-text"> Scroll over the map to adjust the zoom. Add destination points to
 					calculate estimated trip duration.
-				</p>
+				</div>
 			)}
 		</div>
 	);

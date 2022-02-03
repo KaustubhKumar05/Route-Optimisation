@@ -5,14 +5,21 @@
 }
 
 .App {
-	width: 100%;
-	height: 100%;
+	display: grid;
+	grid-template-rows: 0.2fr 2fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"nav nav"
+		"map map"
+		"dashboard dashboard";
+	width: 100vw;
+	height: 100vh;
+	background-color: grey;
 	overflow: hidden;
 }
 
 .map {
-	width: 100%;
-	height: 50vh;
+	grid-area: map;
 }
 
 .hide {
@@ -39,14 +46,15 @@
 .navbar {
 	display: flex;
 	justify-content: space-between;
-	height: 7vh;
+	grid-area: nav;
 	align-items: center;
 }
 
 .navbar-left {
 	display: flex;
-	flex-grow: 2;
+	flex-grow: 5;
 	height: 100%;
+	color: white;
 	padding: 1vh;
 	align-items: center;
 }
@@ -56,13 +64,13 @@
 	justify-content: space-around;
 	height: 100%;
 	align-items: center;
-	background-color: brown;
 	flex-grow: 1;
 }
 
 .icon {
 	cursor: pointer;
 	size: 0.1em;
+	color: white;
 }
 
 p {
@@ -73,44 +81,93 @@ p {
 
 .dashboard {
 	display: flex;
-	height: 43vh;
+	justify-content: center;
+	align-items: center;
+	grid-area: dashboard;
+	height: 100%;
 }
 
 .user-input {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	width: 50vw;
-	background-color: blueviolet;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 1;
+	width: 100%;
+	height: 90%;
 }
 
 .input-bars {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	color: white;
 	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 2px solid white;
+	border-radius: 10px;
+	width: 80%;
+	height: 100%;
 }
 
 .buttons {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	flex-grow: 1;
+	width: 60%;
 	justify-content: space-around;
-	padding: 10px;
-	background-color: aquamarine;
 	height: 100%;
 }
 
 .route-duration {
 	display: flex;
-	width: 50vw;
-	background-color: aqua;
+	width: 100%;
+	height: 90%;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
 }
 
 .right-panel {
 	display: flex;
-	padding: 5vw;
+	border: 2px solid white;
+	border-radius: 10px;
+	color: white;
+	width: 80%;
+	height: 100%;
+	font-size: 3.5vh;
+	padding-left: auto;
+	padding-right: auto;
+	background-color: rgba(0, 0, 0, 0.5);
 	justify-content: center;
 	align-items: center;
+}
+
+.right-panel-text {
+	display: flex;
+	width: 80%;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (orientation: portrait) {
+	.App {
+		display: grid;
+		grid-template-rows: 1fr 5fr 4fr;
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"nav"
+			"map"
+			"dashboard";
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+	}
+	.dashboard {
+		display: flex;
+		flex-direction: column;
+		grid-area: dashboard;
+		height: 100%;
+		width: 100vw;
+	}
 }

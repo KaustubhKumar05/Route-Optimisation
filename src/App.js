@@ -6,9 +6,22 @@ import * as tts from "@tomtom-international/web-sdk-services";
 import RouteDuration from "./RouteDuration";
 import Navbar from "./Navbar";
 import TextField from "@mui/material/TextField";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import { whit/e } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 
 const KEY = "dExniraENWHwB9aLHajmRBj9i21eFbO8";
+
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: "#FFFFFF",
+		},
+		secondary: {
+			main: "#11cb5f",
+		},
+	},
+});
 
 const App = () => {
 	const [map, setMap] = useState({});
@@ -107,7 +120,7 @@ const App = () => {
 			marker.on("dragend", () => {
 				const pos = marker.getLngLat();
 				setLongitude(pos.lng);
-				totalTime.current = 0
+				totalTime.current = 0;
 				setLatitude(pos.lat);
 			});
 			marker.setPopup(popUp).togglePopup();
@@ -162,7 +175,7 @@ const App = () => {
 					})
 					.then((routeData) => {
 						const formattedRouteData = routeData.toGeoJson();
-						
+
 						drawRoute(map, formattedRouteData);
 					});
 			});
@@ -178,36 +191,49 @@ const App = () => {
 			<div className="dashboard">
 				<div className="user-input">
 					<div className="input-bars">
-						<p>Set pointer location</p>
-						<TextField
-							id="longitudeInput"
-							size="small"
-							margin="normal"
-							inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-							label="Enter longitude"
-							variant="outlined"
-						/>
-						<TextField
-							id="latitudeInput"
-							size="small"
-							margin="normal"
-							inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-							label="Enter latitude"
-							variant="outlined"
-						/>
-					</div>
+						<ThemeProvider theme={theme}>
+							<TextField
+								id="longitudeInput"
+								color="primary"
+								sx={{ input: { color: "white" } }}
+								size="small"
+								margin="normal"
+								focused
+								inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+								label="Enter longitude"
+								variant="outlined"
+							/>
+							<TextField
+								id="latitudeInput"
+								color="primary"
+								sx={{ input: { color: "red" } }}
+								focused
+								size="small"
+								margin="normal"
+								inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+								label="Enter latitude"
+								variant="outlined"
+							/>
+						</ThemeProvider>
+						<div className="buttons">
+							<ThemeProvider theme={theme}>
+								<Button
+									size="large"
+									variant="contained"
+									onClick={updateLocation}
+								>
+									Update
+								</Button>
 
-					<div className="buttons">
-						<Button variant="contained" onClick={updateLocation}>
-							Update location
-						</Button>
-
-						<Button
-							variant="contained"
-							onClick={() => window.location.reload()}
-						>
-							Reset map
-						</Button>
+								<Button
+									variant="contained"
+									size="large"
+									onClick={() => window.location.reload()}
+								>
+									Reset
+								</Button>
+							</ThemeProvider>
+						</div>
 					</div>
 				</div>
 				<div className="route-duration">
