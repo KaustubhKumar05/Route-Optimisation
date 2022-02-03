@@ -16,14 +16,18 @@ const Navbar = ({ handleSetModalView }) => {
 			<div className="navbar-right">
 				<div className="tomtom icon">
 					<Tooltip title="TomTom API" placement="bottom">
-						<a href="https://developer.tomtom.com/" target="_blank">
+						<a
+							href="https://developer.tomtom.com/"
+							target="_blank"
+							rel="noreferrer"
+						>
 							<SyncAltIcon />
 						</a>
 					</Tooltip>
 				</div>
 				<div className="material icon">
 					<Tooltip title="Material UI" placement="bottom">
-						<a href="https://mui.com//" target="_blank">
+						<a href="https://mui.com//" target="_blank" rel="noreferrer">
 							<BrushIcon />
 						</a>
 					</Tooltip>
@@ -34,6 +38,7 @@ const Navbar = ({ handleSetModalView }) => {
 						<a
 							href="https://github.com/KaustubhKumar05/Route-Optimisation"
 							target="_blank"
+							rel="noreferrer"
 						>
 							<GitHubIcon fontSize="large" />
 						</a>
