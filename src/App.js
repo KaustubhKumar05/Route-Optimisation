@@ -107,6 +107,7 @@ const App = () => {
 			marker.on("dragend", () => {
 				const pos = marker.getLngLat();
 				setLongitude(pos.lng);
+				totalTime.current = 0
 				setLatitude(pos.lat);
 			});
 			marker.setPopup(popUp).togglePopup();
