@@ -29,7 +29,15 @@ const App = () => {
 	const [latitude, setLatitude] = useState(22.3072);
 	const [longitude, setLongitude] = useState(73.1812);
 	const totalTime = useRef(0);
+	const [portrait, setPortrait] = useState(
+		!window.matchMedia("(orientation:landscape)").matches
+	);
 	const [routeDuration, setRouteDuration] = useState(0);
+
+	const orientation = window.matchMedia("(orientation:landscape)");
+	orientation.addEventListener("change", () => {
+		setPortrait(!portrait);
+	});
 
 	const formatAsPoint = (lngLat) => {
 		return {
@@ -82,8 +90,6 @@ const App = () => {
 			lng: longitude,
 			lat: latitude,
 		};
-
-		// console.log(routeDuration)
 
 		let map = tt.map({
 			key: KEY,
@@ -217,21 +223,36 @@ const App = () => {
 						</ThemeProvider>
 						<div className="buttons">
 							<ThemeProvider theme={theme}>
-								<Button
-									size="large"
-									variant="contained"
-									onClick={updateLocation}
-								>
-									Update
-								</Button>
-
-								<Button
-									variant="contained"
-									size="large"
-									onClick={() => window.location.reload()}
-								>
-									Reset
-								</Button>
+								{portrait === true ? (
+									<Button size="large" variant="text" onClick={updateLocation}>
+										Update
+									</Button>
+								) : (
+									<Button
+										size="large"
+										variant="contained"
+										onClick={updateLocation}
+									>
+										Update
+									</Button>
+								)}
+								{portrait === true ? (
+									<Button
+										variant="text"
+										size="large"
+										onClick={() => window.location.reload()}
+									>
+										Reset
+									</Button>
+								) : (
+									<Button
+										variant="contained"
+										size="large"
+										onClick={() => window.location.reload()}
+									>
+										Reset
+									</Button>
+								)}
 							</ThemeProvider>
 						</div>
 					</div>

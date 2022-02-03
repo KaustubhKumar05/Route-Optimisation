@@ -6,6 +6,9 @@
 
 .App {
 	display: grid;
+	background-color: #bd4f6c;
+	background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
+
 	grid-template-rows: 0.2fr 2fr 1fr;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
@@ -91,6 +94,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	grid-area: input;
 	justify-content: center;
 	flex-grow: 1;
 	width: 100%;
@@ -122,6 +126,7 @@ p {
 .route-duration {
 	display: flex;
 	width: 100%;
+	grid-area: route;
 	height: 90%;
 	flex-grow: 1;
 	justify-content: center;
@@ -135,7 +140,7 @@ p {
 	color: white;
 	width: 80%;
 	height: 100%;
-	font-size: 3.5vh;
+	font-size: 3vh;
 	padding-left: auto;
 	padding-right: auto;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -153,7 +158,7 @@ p {
 @media (orientation: portrait) {
 	.App {
 		display: grid;
-		grid-template-rows: 1fr 5fr 4fr;
+		grid-template-rows: 1fr 5fr 3fr;
 		grid-template-columns: 1fr;
 		grid-template-areas:
 			"nav"
@@ -163,11 +168,36 @@ p {
 		height: 100vh;
 		overflow: hidden;
 	}
+
 	.dashboard {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		background-color: rgba(0, 0, 0, 0.5);
+		grid-template-areas:
+			"input"
+			"route";
 		flex-direction: column;
 		grid-area: dashboard;
 		height: 100%;
 		width: 100vw;
+	}
+
+	.route-duration{
+		height: 80%;
+	}
+
+	.right-panel {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 2.5vh;
+		border: none;
+		height: 80%;
+		width: fit-content;
+	}
+
+	.input-bars {
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+		margin-top: 10%;
 	}
 }

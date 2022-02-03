@@ -22,7 +22,7 @@ const RouteDuration = ({ routeDuration }) => {
 				</div>
 			) : (
 				<div className="right-panel-text"> Scroll over the map to adjust the zoom. Add destination points to
-					calculate estimated trip duration.
+					calculate the driving time.
 				</div>
 			)}
 		</div>
