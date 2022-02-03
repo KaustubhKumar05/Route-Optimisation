@@ -143,10 +143,10 @@ const App = () => {
 					resultsArray.sort((a, b) => a.drivingTime - b.drivingTime);
 					const sortedLocations = resultsArray.map((result) => {
 						totalTime.current += result.drivingTime;
-						setRouteDuration(totalTime.current);
 						return result.location;
 					});
 					resolve(sortedLocations);
+					setRouteDuration(totalTime.current);
 				});
 			});
 		};
@@ -161,7 +161,7 @@ const App = () => {
 					})
 					.then((routeData) => {
 						const formattedRouteData = routeData.toGeoJson();
-						console.log(routeDuration);
+						
 						drawRoute(map, formattedRouteData);
 					});
 			});
@@ -210,7 +210,7 @@ const App = () => {
 					</div>
 				</div>
 				<div className="route-duration">
-					<RouteDuration routeDuration={routeDuration} />
+					<RouteDuration routeDuration={totalTime.current} />
 				</div>
 			</div>
 		</div>
