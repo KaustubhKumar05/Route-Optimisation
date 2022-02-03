@@ -31,7 +31,12 @@ const Navbar = ({ handleSetModalView }) => {
 
 				<div className="project-repo icon">
 					<Tooltip title="Project repo" placement="bottom">
-						<GitHubIcon fontSize="large" />
+						<a
+							href="https://github.com/KaustubhKumar05/Route-Optimisation"
+							target="_blank"
+						>
+							<GitHubIcon fontSize="large" />
+						</a>
 					</Tooltip>
 				</div>
 				<div className="icon">
