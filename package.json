@@ -1,5 +1,5 @@
 {
-  "name": "tom-tom-routing",
+  "name": "route-optimization",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,5 +42,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
