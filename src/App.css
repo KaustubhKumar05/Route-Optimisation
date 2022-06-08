@@ -107,6 +107,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-top: 15px;
   color: white;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -122,7 +123,7 @@ p {
   flex-grow: 1;
   width: 60%;
   min-width: 200px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 100%;
 }
 
