@@ -10,9 +10,12 @@ import TTMap from "./components/TTMap";
 import Dashboard from "./components/Dashboard";
 
 import keyString from "./assets/Key";
+import formatAsPoint from "./utils/formatAsPoint";
+import drawRoute from "./utils/drawRoute";
+import addDestinationMarker from "./utils/addDestinationMarker";
 
 const App = () => {
-  const mapElement = useRef();
+  const mapElement = useRef(null);
   const totalTime = useRef(0);
   const [modalView, setModalView] = useState(true);
   const [latitude, setLatitude] = useState(22.3072);
@@ -23,34 +26,6 @@ const App = () => {
     setModalView(!modalView);
   };
 
-  const formatAsPoint = (lngLat) => {
-    return {
-      point: {
-        latitude: lngLat.lat,
-        longitude: lngLat.lng
-      }
-    };
-  };
-
-  const drawRoute = (map, formattedRouteData) => {
-    if (map.getLayer("route")) {
-      map.removeLayer("route");
-      map.removeSource("route");
-    }
-    map.addLayer({
-      id: "route",
-      type: "line",
-      source: {
-        type: "geojson",
-        data: formattedRouteData
-      },
-      paint: {
-        "line-color": "red",
-        "line-width": 3
-      }
-    });
-  };
-
   const updateLocation = () => {
     const latBar = document.getElementById("latitudeInput");
     const lngBar = document.getElementById("longitudeInput");
@@ -59,17 +34,8 @@ const App = () => {
     setRouteDuration(0);
   };
 
-  const addDestinationMarker = (lngLat, map) => {
-    const element = document.createElement("div");
-    element.className = "destination-marker";
-    new tt.Marker({
-      element: element
-    })
-      .setLngLat(lngLat)
-      .addTo(map);
-  };
-
   useEffect(() => {
+    const destinations = [];
     const origin = {
       lng: longitude,
       lat: latitude
@@ -117,8 +83,6 @@ const App = () => {
 
     addMarker();
 
-    const destinations = [];
-
     map.on("click", (e) => {
       destinations.push(e.lngLat);
       addDestinationMarker(e.lngLat, map);
@@ -129,6 +93,7 @@ const App = () => {
       const formattedDestinations = destinations.map((destination) => {
         return formatAsPoint(destination);
       });
+
       const callParams = {
         key: keyString,
         destinations: formattedDestinations,
@@ -144,12 +109,13 @@ const App = () => {
               drivingTime: result.response.routeSummary.travelTimeInSeconds
             };
           });
-          resultsArray.sort((a, b) => a.drivingTime - b.drivingTime);
-          const sortedLocations = resultsArray.map((result) => {
+
+          const locationsArray = resultsArray.map((result) => {
             totalTime.current += result.drivingTime;
             return result.location;
           });
-          resolve(sortedLocations);
+
+          resolve(locationsArray);
           setRouteDuration(totalTime.current);
         });
       });
@@ -174,7 +140,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {modalView === true && <Modal handleSetModalView={handleSetModalView} />}
+      {modalView && <Modal handleSetModalView={handleSetModalView} />}
       <Navbar handleSetModalView={handleSetModalView} />
       <TTMap mapElement={mapElement} />
       <Dashboard

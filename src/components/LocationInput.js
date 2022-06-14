@@ -16,7 +16,7 @@ const theme = createTheme({
 
 const LocationInput = ({ updateLocation }) => {
   const [portrait, setPortrait] = useState(
-    !window.matchMedia("(orientation:landscape)").matches
+    window.matchMedia("(orientation:portrait)").matches
   );
 
   //For MUI themes
@@ -43,7 +43,7 @@ const LocationInput = ({ updateLocation }) => {
           <TextField
             id="latitudeInput"
             color="primary"
-            sx={{ input: { color: "red" } }}
+            sx={{ input: { color: "white" } }}
             focused
             size="small"
             margin="normal"

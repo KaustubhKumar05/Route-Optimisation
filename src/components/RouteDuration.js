@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import formatDuration from "../assets/formatDuration";
+import formatDuration from "../utils/formatDuration";
 
 const RouteDuration = ({ duration }) => {
   useEffect(() => {
@@ -15,7 +15,6 @@ const RouteDuration = ({ duration }) => {
           </div>
         ) : (
           <div className="right-panel-text">
-            {" "}
             Scroll over the map to adjust the zoom. Add destination points to
             calculate the driving time.
           </div>
