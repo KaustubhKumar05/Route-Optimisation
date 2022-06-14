@@ -89,7 +89,7 @@ const App = () => {
       updateRoute();
     });
 
-    const sortDestinations = (destinations) => {
+    const formatDestinations = (destinations) => {
       const formattedDestinations = destinations.map((destination) => {
         return formatAsPoint(destination);
       });
@@ -122,12 +122,12 @@ const App = () => {
     };
 
     const updateRoute = () => {
-      sortDestinations(destinations).then((sorted) => {
-        sorted.unshift(origin);
+      formatDestinations(destinations).then((formattedDestinations) => {
+        formattedDestinations.unshift(origin);
         tts.services
           .calculateRoute({
             key: keyString,
-            locations: sorted
+            locations: formattedDestinations
           })
           .then((routeData) => {
             const formattedRouteData = routeData.toGeoJson();
